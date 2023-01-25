@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang='fr'>
+ <head>
+  <title>Mariage de Joséphine et Sylvain</title>
+  <meta charset="utf-8"/>
+  <link rel="icon" href="img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#476bb9">
+  <style>
+	@font-face {
+		font-family: 'transattextbold';
+		src: url('font/transattextbold.woff') format('woff');
+	}
+	@font-face {
+		font-family: 'attennewbook';
+		src: url('font/attennewbook.woff') format('woff');
+	}
+ 	body {
+		display: flex;
+		flex-direction: column;
+		font-size: 1.2em;
+		margin: 0;
+		width: 100%;
+		background: linear-gradient(180deg, rgb(234, 219, 219) 0%, rgb(238, 234, 228) 100%);
+		font-family: 'attennewbook', sans-serif;
+		letter-spacing: 0.07em;
+		line-height: 1.5em;
+	}
+	h1, h2, h3 {
+		font-family: 'transattextbold', sans-serif;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+	h2 {
+		font-size: 1.4em;
+		color: #595959;
+	}
+	hr {
+		margin: -10px 92% 40px 0;
+		border: none;
+		height: 3px;
+		background-color: #595959;
+	}
+	#about {
+		margin: 200px 0 0;
+	}
+	#gift > div > *, #see-you-soon > div > * {
+		flex: 1;
+		align-self: center;
+	}
+	#gift > div, #see-you-soon > div {
+		display: flex;
+	}
+	#gift img, #see-you-soon img {
+		width: 100%;
+	}
+	#gift p {
+		margin: 0;
+		padding: 0 15px;
+		text-align: justify;
+	}
+	section {
+		margin-bottom: 60px;
+	}
+	#invitation p {
+		text-align: center;
+	}
+	#invitation #date {
+		display: block;
+		font-size: 1.5em;
+		margin: 25px auto;
+		text-align: center;
+		line-height: 1.3em;
+		text-transform: uppercase;
+	}
+	#invitation #time {
+		font-size: .8em;
+	}
+	#locations > div {
+		display: flex;
+		gap: 40px;
+	}
+	#locations h3 {
+		color: #595959;
+		text-align: center;
+	}
+	#locations > div > div {
+		flex: 1;
+		background: #f2f2f2;
+		padding: 10px;
+		box-shadow: 3px 3px 3px #00000014;
+	}
+	#locations img {
+		width: 100%;
+	}
+	#message {
+		color: red;
+	}
+	#programme-container {
+		padding-bottom: 55px;
+	}
+	#programme-container {
+		border-left: solid 2px black;
+	}
+	#programme-container p {
+		padding-left: 5px;
+	}
+	#programme-container p:before {
+		content: "•";
+		font-size: 25px;
+		margin-left: -11px;
+		position: relative;
+		top: 31px;
+	}
+	#rsvp p, .checkbox-inline {
+		display: inline-block;
+	}
+	#rsvp-container {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		margin: 2em auto;
+	}
+	#rsvp-container .label {
+		display: none;
+	}
+	#rsvp-container > span {
+		text-align: center;
+	}
+	#rsvp-template, #rsvp-form, #rsvp, #submit {
+		display: none;
+	}
+	#see-you-soon {
+		margin-top: 5em;
+	}
+	#see-you-soon p {
+		text-align: center;
+	}
+	#see-you-soon > div, #gift > div  {
+		background: #f2f2f2;
+		padding: 10px;
+		box-shadow: 3px 3px 3px #00000014;
+	}
+	#see-you-soon > div > div {
+		display: flex;
+		justify-content: center;
+		align-content: center;
+		flex-direction: column;
+	 }
+	#submit {
+		background-color: #6b90ae;
+		color: #fff;
+		border: none;
+		border-radius: 10px;
+		box-shadow: none;
+		display: block;
+		font-size: .9em;
+		margin: 0 auto;
+		outline: 0;
+		padding: 10px;
+	}
+	#submit:hover {
+		cursor: pointer;
+	}
+	#rsvp .submit-ok {
+		background-color: #73a273;
+		color: white;
+	}
+	#visit p {
+		text-align: justify;
+	}
+	.rsvp-header {
+		margin-bottom: 10px;
+	}
+	.singular, .plural {
+		display: none;
+	}
+	.time, .event, .location, .day {
+		display: block;
+		margin-left: 15px;
+	}
+	.day {
+		margin-bottom: -40px;
+		color: #bf7061;
+	}
+	span[data-overflow-breakpoint] {
+		overflow-breakpoint: data-attr;
+		color: #666;
+	}
+	span[data-overflow-breakpoint]::after  {
+		position: absolute;
+		top: -100px;
+		content: attr(data-overflow-breakpoint);
+	}
+	span[data-overflow-breakpoint]:hover::after  {
+		position: inherit;
+		padding: 0 5px;
+	}
+	#programme-container p.container-day:before {
+		content: "";
+	}
+	.time {
+		font-weight: bold;
+	}
+	.location {
+		color: gray;
+	}
+	a, a:visited {
+		color: #bf7061;
+		text-decoration: none;
+	}
+	#dessin {
+		max-height: 95vh;
+		margin: -10px auto 30px;
+	}
+	#dessin:hover {
+		cursor: pointer;
+	}
+	page {
+		align-self: center;
+		margin-bottom: 5em;
+		background-color: #fff;
+		padding: 40px;
+		box-shadow: 5px 5px 5px #0000002e;
+	}
+	textarea {
+		outline: 0;
+		resize: none;
+		width: 100%;
+		padding: 5px;
+	}
+	
+	/* Custom checkboxes */
+	
+	.checkbox-container {
+	  display: block;
+	  position: relative;
+	  padding-left: 35px;
+	  margin-bottom: 12px;
+	  cursor: pointer;
+	  font-size: 22px;
+	  -webkit-user-select: none;
+	  -moz-user-select: none;
+	  -ms-user-select: none;
+	  user-select: none;
+	  font-size: 1em;
+	  
+	}
+	.checkbox-container input {
+	  position: absolute;
+	  opacity: 0;
+	  cursor: pointer;
+	  height: 0;
+	  width: 0;
+	}
+	.checkmark {
+	  position: absolute;
+	  top: calc(50% - 12.5px);
+	  left: calc(50% - 12.5px);
+	  height: 25px;
+	  width: 25px;
+	  background-color: #eee;
+	  border-radius: 15px;
+	}
+	.checkbox-container:hover input ~ .checkmark {
+	  background-color: #ccc;
+	}
+	.checkbox-container input:checked ~ .checkmark {
+	  background-color: #6B90AE;
+	}
+	.checkmark:after {
+	  content: "";
+	  position: absolute;
+	  display: none;
+	}
+	.checkbox-container input:checked ~ .checkmark:after {
+	  display: block;
+	}
+	.checkbox-container .checkmark:after {
+	  left: 9px;
+	  top: 5px;
+	  width: 5px;
+	  height: 10px;
+	  border: solid white;
+	  border-width: 0 3px 3px 0;
+	  -webkit-transform: rotate(45deg);
+	  -ms-transform: rotate(45deg);
+	  transform: rotate(45deg);
+	}
+	
+	/* End of custom checkboxes */
+
+	#answer .checkmark {
+		top: 0;
+		left: 0;
+	}
+	
+	/* Media queries */
+	@media only screen and (max-height: 700px) {
+		#dessin {
+			max-height: unset;
+			width: 100%;
+		}
+		page {
+			width: 580px;
+		}
+	}
+	@media only screen and (max-width: 1100px) {
+		html, body {
+		  overflow-x:hidden 
+		} 
+		page {
+			width: 100%;
+			padding-top: 0px;			 
+		}
+		textarea {
+		  width: 90%;
+		  margin: 0 auto;
+		  display: block;
+		}
+		#dessin {
+			max-height: unset;
+			width: 100%;
+			margin-top: 0px;
+		}
+		#rsvp-container .label {
+			display: inline;
+		}
+		#locations > div, #gift > div {
+			flex-direction: column;
+		}
+		#see-you-soon > div {
+			flex-direction: column-reverse;
+		}
+		h2, h3, p, #answer, #rsvp-container, textarea {
+			padding: 0 10px;
+		}
+		body {
+			font-size: 1.4em;
+		}
+		#programme-container {
+		  margin-left: 10px;
+		}
+		#gift p {
+			margin-top: 20px
+		}
+		.rsvp-header {
+			display: none;
+		}
+		#rsvp-container {
+			grid-template-columns: repeat(1, 1fr);
+		}
+		#rsvp-container .checkmark {
+		  top: 0;
+		  left: 0;
+		}
+		hr {
+			margin: -12px 88% 40px 10px;
+		}
+	}
+  </style>
+  <script async>
+	// Old style JS, trying to be as compatible as possible
+	document.addEventListener("DOMContentLoaded", function () {
+		var asyncAwaitSupport = function() {
+			try {
+				eval("(function() { async _ => _ })()")
+			} catch (e) {
+				return false
+			}
+			return true
+		}()
+		if (! ("fetch" in window) || ! ("URLSearchParams" in window) || ! asyncAwaitSupport) {
+			panic(document.getElementById("browserNotCompatible").innerText)
+		}
+		main()
+	})
+	function panic(errMsg) {
+		document.write(errMsg)
+		alert(errMsg)
+		throw new Error(errMsg)
+	}
+	// The real deal
+	async function main() {
+		// At this point we got a compatible browser
+		document.querySelector("#browserNotCompatible").style.display = "none"
+		document.querySelector("#dessin").addEventListener("click", (e) => window.open("https://raw.githubusercontent.com/sd65/josephine-et-sylvain.fr/master/img/dessin.jpg", "_self"))
+		/// I wish UUIDs were more readable
+		// Vars
+		const submitButton = document.querySelector("#submit")
+		const dietTextarea = document.querySelector("textarea")
+		// $42 to the first who can do this without this JS fuckery
+		let img = document.querySelector("img")
+		function s() {
+			[...document.querySelectorAll("section")].map(el => el.style.maxWidth = img.width + "px")
+		}
+		if ("ResizeObserver" in window) {
+			new ResizeObserver(s).observe(img)
+		} else {
+			s()
+			setTimeout(s, 500)
+		}
+		// Handle answer checkboxes change
+		[...document.querySelectorAll("#present, #not-present")].map(
+			el => el.addEventListener('change', (e) => {
+				const checkboxIdToUncheck = (e.target.id === "present") ? "not-present" : "present"
+				document.querySelector("#" + checkboxIdToUncheck).checked = false
+				document.querySelector("#rsvp-form").style.display = (checkboxIdToUncheck === "not-present") ? "block" : "none"
+			})
+		)
+		/////////////////
+		// Get saved data
+		/// Juliet Jarib
+		const urlParams = new URLSearchParams(window.location.search)
+		const familyId = urlParams.get('famille')
+		if (!familyId) {
+			panic("Pas de bras, pas de chocolat ¯\_(ツ)_/¯ Contactez Sylvain pour résoudre le problème.")
+		}
+		let payload
+		try {
+			const response = await fetch(`https://maqaun4b0e.execute-api.eu-west-3.amazonaws.com/rsvp?id=${familyId}`)
+			if (!response.ok) {
+			  throw new Error()
+			}
+			/// Kerby the Elocutionist of Bryantville
+			payload = await response.json()
+		} catch (e) {
+			let errorMsg = "Impossible de charger votre page, recommencez demain puis contactez Sylvain si l'erreur persiste. Si vous (PH, Tony, ?) cherchez à énumérer les familles, je vous surveille 👀."
+			document.querySelector("form").innerText = errorMsg
+			document.querySelector("form").style.color = "red"
+			document.querySelector("#rsvp").style.display = "block"
+			throw new Error(errorMsg)
+		}
+		// Build the attendance checkboxes
+		/// enters Cinnamon Darnall Efren
+		const rsvp = document.querySelector("#rsvp-container")
+		for (let person of payload.attendance) {
+			const rsvpTemplate = document.querySelector("#rsvp-template")
+			const rsvpPerson = rsvpTemplate.cloneNode(true)
+			rsvpPerson.querySelector("p[data-template='name']").innerText = person.name
+			for (let event of ["cocktail", "diner", "brunch"]) {
+				const el = rsvpPerson.querySelector(`input[data-template='${event}']`)
+				el.checked = person[event]
+				el.id = event + person.sort
+				el.previousElementSibling.setAttribute("for", event + person.sort)
+
+			}
+			rsvp.append(...rsvpPerson.children)
+		}
+		// Set answer 
+		if (payload.present) {
+			submitButton.style.display = "none"
+			const checkboxIdToCheck = (payload.present === "yes") ? "present" : "not-present"
+			document.querySelector("#" + checkboxIdToCheck).checked = true
+			let ce = new Event('change')
+			ce.setup = true
+			document.querySelector("#" + checkboxIdToCheck).dispatchEvent(ce)
+		}
+		// Singular or plural answers
+		let classToUnhide = "singular"
+		if (payload.attendance.length > 1) {
+			classToUnhide = "plural"
+		}
+		;[...document.querySelectorAll("." + classToUnhide)].map(el => el.style.display = "inline")
+		// Set diet
+		if (payload.diet) {
+			dietTextarea.value = payload.diet
+		}
+		// We are ready to display the page
+		document.querySelector("#rsvp").style.display = "block"
+		// Handle diet and attendance changes
+		dietTextarea.addEventListener("input", () => submitButton.style.display = "block")
+		;[...document.querySelectorAll("#rsvp-container input")].map(el => el.addEventListener("change", () => submitButton.style.display = "block"))
+		//////////////
+		// Submission
+		document.querySelector("form").addEventListener("submit", async (e) => {
+			e.preventDefault()
+			// Clear any error
+			document.querySelector("#message").innerText = ""
+			// Get answer
+			let present = ""
+			if (document.querySelector("#present").checked) {
+				present = "yes"
+			} else if (document.querySelector("#not-present").checked) {
+				present = "no"
+			}
+			// Get diet
+			/// and 10 cold finchs
+			const diet = dietTextarea.value
+			// Get attendance
+			let newAttendance = []
+			for (let [index, personEl] of [...document.querySelectorAll("p[data-template='name']")].filter(el => el.innerText) .entries()) {
+				newAttendance.push({
+					sort: index+1,
+					cocktail: personEl.nextElementSibling.querySelector("input[data-template='cocktail']").checked,
+					diner: personEl.nextElementSibling.nextElementSibling.querySelector("input[data-template='diner']").checked,
+					brunch: personEl.nextElementSibling.nextElementSibling.nextElementSibling.querySelector("input[data-template='brunch']").checked
+				})
+			}
+			// Post it
+			try {
+				// Note aux lecteurs : aucun secret à décourir en envoyant un payload invalide ou trafiqué.
+				const response2 = await fetch(
+					`https://maqaun4b0e.execute-api.eu-west-3.amazonaws.com/rsvp?id=${familyId}`,
+					{
+						method: 'POST',
+						headers: {
+						  'Content-Type': 'application/json'
+						},
+						body: JSON.stringify({ present, diet, attendance: newAttendance})
+				  }
+				)
+				if (!response2.ok) {
+				  throw new Error(await response2.text())
+				}
+				// Display completion
+				const originalSubmitText = submitButton.value
+				submitButton.value = "OK !"
+				submitButton.classList.add("submit-ok")
+				submitButton.disabled = true
+				setTimeout(() => {
+					submitButton.style.display = "none"
+					submitButton.classList.remove("submit-ok")
+					submitButton.value = originalSubmitText
+					submitButton.disabled = false
+				}, 3 * 1000)
+				
+			} catch (e) {
+				let errorMsg = `${e} : impossible de soumettre le formulaire de RSVP, recommencez demain puis contactez Sylvain si l'erreur persiste. Si vous cherchez à soumettre des choses étranges, je vous surveille 👀.`
+				document.querySelector("#message").innerText = errorMsg
+				throw new Error(errorMsg)
+			}
+		})
+	}
+  </script>
+ </head>
+ <body>
+	<div id="browserNotCompatible">
+		Votre navigateur web ne pas pas afficher cette page, ouvrez ce site dans un navigateur à jour comme Chrome, Edge, Firefox ou Safari. Si vous avez besoin d'aide, contactez Sylvain. Merci !
+	</div>
+	<page>
+		<img id="dessin" src="img/dessin.jpg"/>
+		<section id="invitation">
+			<p>
+				Nous avons l'immense plaisir de vous faire part de notre mariage et nous vous invitons à nous rejoindre le <span id="date">29 avril 2023<br/><span id="time">à 16h00</span></span>en la cathédrale de Sarlat-la-Canéda, puis à la réception au<span data-overflow-breakpoint="1343px">x</span> jardins d'E<span data-overflow-breakpoint="2736px">y</span>rignac.
+			</p>
+		</section>
+		<section id="programme">
+			<h2>Programme</h2>
+			<hr/>
+			<div id="programme-container">
+				<p class="container-day">
+					<span class="day">Samedi</span>
+				</p>
+				<p>
+					<span class="time">16h00</span>
+					<span class="event">Célébration religieuse</span>
+					<span class="location">Cathédrale de Sarlat</span>
+				</p>
+				<p>
+					<span class="time">À partir de 18h00<span style="font-weight: normal"> (accueil dès 17h30)</span></span>
+					<span class="event">Cocktail</span>
+					<span class="location">Jardins d'Eyrignac</span>
+				</p>
+				<p>
+					<span class="time">~ 20h00</span>
+					<span class="event">Dîner puis soirée</span>
+					<span class="location">Jardins d'Eyrignac</span>
+				</p>
+				<p class="container-day">
+					<span class="day">Dimanche</span>
+				</p>
+				<p>
+					<span class="time">À partir de 11h30</span>
+					<span class="event">Brunch</span>
+					<span class="location">Jardins d'Eyrignac</span>
+				</p>
+				<p class="container-day">
+					<span class="day">Lundi (férié)</span>
+				</p>
+			</div>
+		</section>
+		<section id="locations">
+			<h2>Lieux</h2>
+			<hr/>
+			<div>
+				<div>
+					<img src="img/sarlat.jpg">
+					<h3>Cathédrale de Sarlat</h3>
+					<p>La cathédrale Saint-Sacerdos de notre ville.</p>
+					<p><a href="https://goo.gl/maps/YEaFk1XsHCsNt9ZYA" target="_blank">Lien</a></p>
+				</div>
+				<div>
+					<img src="img/jardins.jpg">
+					<h3>Les Jardins d'Eyrignac</h3>
+					<p>Un coup de coeur proche de notre maison.</p>
+					<p><a href="https://goo.gl/maps/uGBNscgraHsLLpBr7" target="_blank">Lien</a></p>
+				</div>
+			</div>
+			<p>
+				Les Jardins d'Eyrignac sont à 25 minutes en voiture de Sarlat.
+			</p>
+		</section>
+		<section id="visit">
+			<h2>Visite des jardins</h2>
+			<hr/>
+			<p>
+				Le cocktail aura lieu dans le jardin blanc. Pour décourir tous les jardins d'Eyrignac, un billet pour une visite vous sera offert le jour du mariage. Les jardins seront ouverts le dimanche dès 10h30.
+			</p>
+		</section>
+		<section id="rsvp">
+			<h2>RSVP</h2>
+			<hr/>
+			<form>
+
+				<div id="answer">
+					<label class="checkbox-container">
+						<label for="present">Oui, <span class="singular">je serai présent.</span><span class="plural">nous serons présents.</span></label>
+						<input autocomplete="off" type="checkbox" id="present"/>
+						<span class="checkmark"></span>
+					</label >
+					<label class="checkbox-container">
+						<label for="not-present">Non, <span class="singular">je ne serai pas présent.</span><span class="plural">nous ne serons pas présents.</span></label>
+						<input autocomplete="off" type="checkbox" id="not-present"/>
+						<span class="checkmark"></span>
+					</label >
+				</div>
+				<div id="rsvp-form">
+					<div id="rsvp-container">
+						<div id="rsvp-template">
+							<p data-template="name"></p>
+							<label class="checkbox-container">
+								<label class="label">Cocktail</label>
+								<input type="checkbox" data-template="cocktail"/>
+								<span class="checkmark"></span>
+							</label >
+							<label  an class="checkbox-container">
+								<label class="label">Dîner et soirée</label>
+								<input type="checkbox" data-template="diner"/>
+								<span class="checkmark"></span>
+							</label >
+							<label  class="checkbox-container">
+								<label class="label">Brunch></label>
+								<input type="checkbox" data-template="brunch"/>
+								<span class="checkmark"></span>
+							</label>
+						</div>
+						<span class="rsvp-header"></span>
+						<span class="rsvp-header">Cocktail</span>
+						<span class="rsvp-header">Dîner et soirée</span>
+						<span class="rsvp-header">Brunch</span>
+					</div>
+					<textarea placeholder="Veuillez nous indiquer ici un éventuel régime alimentaire particulier ou toute autre information..." rows="4" autocomplete="off"></textarea>
+					<p id="message"></p>
+				</div>
+				<input type="submit" id="submit" value="Sauvegarder"/> 
+			</form>
+			<p>Réponse souhaitée avant le 1 mars.</p>
+		</section>
+		<section id="gift">
+			<h2>Cadeau de mariage</h2>
+			<hr/>
+			<div>
+				<div>
+					<img src="img/honeymoon.jpg"/>
+				</div>
+				<div>
+					<p>
+						Vous connaissez tous notre attrait pour les voyages, c'est donc sans surprise que nous avons voulu organiser un voyage de noces vers une destination qui nous fait rêver depuis longtemps : l'Egypte !
+					<br/><br/>
+						Si vous le souhaitez, vous pouvez participer à notre cadeau de mariage en y contribuant : dès à présent en suivant ce <a href="https://josephine-et-sylvain.zankyou.com/fr/liste-de-mariage/cadeau/id/8604241" target="_blank">lien</a> ou le jour du mariage dans un espace prévu à cet effet.
+					</p>
+				</div>
+			</div>
+		</section>
+		<section id="see-you-soon">
+			<div>
+				<div>
+					<p>
+						À très bientôt ! <br/>&#9825;
+					</p>
+				</div>
+				<div>
+					<img src="img/us.png"/>
+				</div>
+			</div>
+		</section>
+		<section id="about">
+			<p>
+				Illustration par Joe, site par Sylvain.
+			</p>
+		</section>
+	</page>
+ </body>
+</html>
